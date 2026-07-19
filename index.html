@@ -21,22 +21,22 @@
 <body class="h-full bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-cyan-500/30 selection:text-cyan-200 antialiased overflow-hidden">
 
   <!-- Premium Top Navbar -->
-  <header class="glass-panel sticky top-0 z-40 px-6 py-4 flex items-center justify-between border-b border-zinc-800/60 shadow-lg">
+  <header class="glass-panel sticky top-0 z-40 px-3 sm:px-6 py-3 sm:py-4 flex items-center justify-between border-b border-zinc-800/60 shadow-lg">
     <!-- Brand / Title -->
-    <div class="flex items-center gap-3">
-      <div class="h-10 w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-md shadow-blue-500/20">
-        <i data-lucide="tv" class="w-6 h-6 text-white"></i>
+    <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+      <div class="h-8 w-8 sm:h-10 sm:w-10 rounded-xl bg-gradient-to-tr from-blue-600 to-cyan-400 flex items-center justify-center shadow-md shadow-blue-500/20 shrink-0">
+        <i data-lucide="tv" class="w-5 h-5 sm:w-6 sm:h-6 text-white"></i>
       </div>
-      <div>
-        <h1 class="text-xl font-bold tracking-wider bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
-          AETHER <span class="text-cyan-400 font-extrabold text-xs ml-0.5 tracking-normal relative -top-2">IPTV</span>
+      <div class="min-w-0">
+        <h1 class="text-lg sm:text-xl font-bold tracking-wider bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent truncate">
+          Usama <span class="text-cyan-400 font-extrabold text-[10px] sm:text-xs ml-0.5 tracking-normal relative -top-2">IPTV</span>
         </h1>
-        <p class="text-[10px] text-zinc-400 tracking-widest uppercase">Premium Streaming Hub</p>
+        <p class="text-[8px] sm:text-[10px] text-zinc-400 tracking-widest uppercase">Premium Hub</p>
       </div>
     </div>
 
-    <!-- Active Count & Connection Indicators -->
-    <div class="hidden sm:flex items-center gap-6 text-sm">
+    <!-- Active Count & Connection Indicators (Hidden on very small screens) -->
+    <div class="hidden lg:flex items-center gap-4 sm:gap-6 text-sm">
       <div class="flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-800/80">
         <span class="relative flex h-2 w-2">
           <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
@@ -51,31 +51,31 @@
     </div>
 
     <!-- App controls (Settings, Low speed indicator) -->
-    <div class="flex items-center gap-3">
-      <!-- Low Bandwidth Quick Toggle -->
-      <button id="quick-bandwidth-toggle" class="tooltip-parent flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-zinc-800 text-xs font-semibold hover:bg-zinc-800/60 hover:text-cyan-300 transition-colors duration-200 cursor-pointer">
-        <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
-        <span class="hidden md:inline">Low Bandwidth Mode</span>
+    <div class="flex items-center gap-2 sm:gap-3">
+      <!-- Low Bandwidth Quick Toggle (Icon only on mobile) -->
+      <button id="quick-bandwidth-toggle" class="tooltip-parent flex items-center gap-1.5 px-2 sm:px-3 py-1.5 rounded-lg border border-zinc-800 text-xs font-semibold hover:bg-zinc-800/60 hover:text-cyan-300 transition-all duration-200 cursor-pointer">
+        <i data-lucide="zap" class="w-4 h-4 text-amber-500 shrink-0"></i>
+        <span class="hidden sm:inline">Low BW</span>
         <span id="bandwidth-status" class="w-2 h-2 rounded-full bg-zinc-600"></span>
-        <span class="tooltip">Toggle Low Bandwidth Mode (Optimizes for slower internet)</span>
+        <span class="tooltip">Toggle Low Bandwidth Mode</span>
       </button>
 
       <!-- Settings Button -->
-      <button id="settings-toggle-btn" class="tooltip-parent p-2.5 rounded-lg border border-zinc-800 hover:bg-zinc-800/60 transition-colors duration-200 cursor-pointer">
-        <i data-lucide="settings" class="w-5 h-5 text-zinc-400 hover:text-white transition-colors"></i>
-        <span class="tooltip">Open App Settings</span>
+      <button id="settings-toggle-btn" class="tooltip-parent p-2 sm:p-2.5 rounded-lg border border-zinc-800 hover:bg-zinc-800/60 transition-colors duration-200 cursor-pointer">
+        <i data-lucide="settings" class="w-4 h-4 sm:w-5 sm:h-5 text-zinc-400 hover:text-white transition-colors"></i>
+        <span class="tooltip">Open Settings</span>
       </button>
     </div>
   </header>
 
   <!-- Main Container -->
-  <main class="flex-1 flex flex-col md:flex-row overflow-hidden relative">
+  <main class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
     
-    <!-- LEFT PANEL: Cinematic Video Player (60-65% width) -->
-    <section class="w-full shrink-0 md:flex-1 flex flex-col p-3 md:p-4 lg:p-6 md:overflow-y-auto min-w-0 md:min-w-[320px]">
+    <!-- LEFT PANEL: Cinematic Video Player -->
+    <section class="w-full shrink-0 lg:flex-1 flex flex-col p-2 sm:p-3 md:p-4 lg:p-6 lg:overflow-y-auto min-w-0 lg:min-w-[320px]">
       
       <!-- Video Frame Wrapper -->
-      <div class="w-full aspect-video rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 relative group flex flex-col justify-center items-center shadow-2xl">
+      <div class="w-full aspect-video rounded-lg sm:rounded-2xl overflow-hidden bg-zinc-950 border border-zinc-800 relative group flex flex-col justify-center items-center shadow-2xl">
         
         <!-- Native Video Element -->
         <video id="iptv-video" class="w-full h-full object-contain cursor-pointer" preload="auto" playsinline></video>
@@ -83,24 +83,24 @@
         <!-- Loading State Spinner Overlay -->
         <div id="player-loading-overlay" class="absolute inset-0 bg-zinc-950/80 flex flex-col items-center justify-center gap-4 transition-opacity duration-300 pointer-events-none opacity-0 z-20">
           <div class="relative flex items-center justify-center">
-            <div class="w-16 h-16 rounded-full border-4 border-t-cyan-400 border-zinc-800 animate-spin"></div>
-            <i data-lucide="tv" class="w-6 h-6 text-cyan-400 absolute"></i>
+            <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-full border-4 border-t-cyan-400 border-zinc-800 animate-spin"></div>
+            <i data-lucide="tv" class="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400 absolute"></i>
           </div>
-          <p class="text-sm font-semibold tracking-wider text-cyan-400/80 animate-pulse">OPTIMIZING STREAM...</p>
+          <p class="text-xs sm:text-sm font-semibold tracking-wider text-cyan-400/80 animate-pulse">OPTIMIZING STREAM...</p>
         </div>
 
         <!-- Custom Error State Overlay -->
-        <div id="player-error-overlay" class="absolute inset-0 bg-zinc-950/95 flex flex-col items-center justify-center p-6 text-center gap-4 transition-all duration-300 opacity-0 pointer-events-none z-30">
-          <div class="h-16 w-16 rounded-full bg-red-950/40 border border-red-500/30 flex items-center justify-center text-red-500 mb-2">
-            <i data-lucide="alert-triangle" class="w-8 h-8"></i>
+        <div id="player-error-overlay" class="absolute inset-0 bg-zinc-950/95 flex flex-col items-center justify-center p-4 sm:p-6 text-center gap-4 transition-all duration-300 opacity-0 pointer-events-none">
+          <div class="h-12 w-12 sm:h-16 sm:w-16 rounded-full bg-red-950/40 border border-red-500/30 flex items-center justify-center text-red-500 mb-2">
+            <i data-lucide="alert-triangle" class="w-6 h-6 sm:w-8 sm:h-8"></i>
           </div>
-          <h3 class="text-lg font-bold text-white tracking-wide">Stream Playback Failed</h3>
-          <p id="error-message-text" class="text-sm text-zinc-400 max-w-md">Stream temporarily unavailable or restricted by CORS policy. Try enabling the proxy in settings.</p>
-          <div class="flex items-center gap-3 mt-2">
-            <button id="error-retry-btn" class="px-5 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-sm hover:bg-zinc-800 hover:border-zinc-700 font-medium transition-all duration-200 cursor-pointer flex items-center gap-2">
-              <i data-lucide="refresh-cw" class="w-4 h-4"></i> Retry Stream
+          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide">Stream Playback Failed</h3>
+          <p id="error-message-text" class="text-xs sm:text-sm text-zinc-400 max-w-md">Stream temporarily unavailable or restricted by CORS policy. Try enabling the proxy in settings.</p>
+          <div class="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 mt-2 w-full sm:w-auto">
+            <button id="error-retry-btn" class="px-4 sm:px-5 py-2 rounded-lg bg-zinc-900 border border-zinc-800 text-xs sm:text-sm hover:bg-zinc-800 hover:border-zinc-700 font-medium transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 flex-1 sm:flex-none">
+              <i data-lucide="refresh-cw" class="w-4 h-4"></i> Retry
             </button>
-            <button id="error-proxy-enable-btn" class="px-5 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-zinc-950 text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center gap-2">
+            <button id="error-proxy-enable-btn" class="px-4 sm:px-5 py-2 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-zinc-950 text-xs sm:text-sm font-semibold transition-all duration-200 cursor-pointer flex items-center justify-center gap-2 flex-1 sm:flex-none">
               <i data-lucide="shield" class="w-4 h-4"></i> Enable Proxy
             </button>
           </div>
@@ -108,51 +108,51 @@
 
         <!-- Start Overlay Play Button (Init Interaction) -->
         <div id="player-start-overlay" class="absolute inset-0 bg-zinc-950/90 flex flex-col items-center justify-center gap-4 transition-opacity duration-300 z-10 cursor-pointer">
-          <div class="w-20 h-20 rounded-full bg-cyan-400 hover:bg-cyan-300 flex items-center justify-center text-zinc-950 shadow-xl shadow-cyan-400/20 transform transition duration-300 hover:scale-110">
-            <i data-lucide="play" class="w-10 h-10 fill-current ml-1.5"></i>
+          <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-cyan-400 hover:bg-cyan-300 flex items-center justify-center text-zinc-950 shadow-xl shadow-cyan-400/20 transform transition duration-300 hover:scale-110">
+            <i data-lucide="play" class="w-8 h-8 sm:w-10 sm:h-10 fill-current ml-1.5"></i>
           </div>
-          <p class="text-sm font-semibold text-zinc-400 tracking-wider">SELECT A CHANNEL TO START STREAMING</p>
+          <p class="text-xs sm:text-sm font-semibold text-zinc-400 tracking-wider px-4 text-center">SELECT A CHANNEL TO START</p>
         </div>
 
         <!-- Custom Video Player Controls Overlay -->
-        <div id="player-controls-overlay" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent p-4 flex flex-col gap-3 transition-opacity duration-300 opacity-0 group-hover:opacity-100 focus-within:opacity-100 z-20">
+        <div id="player-controls-overlay" class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 to-transparent p-2 sm:p-3 md:p-4 flex flex-col gap-2 sm:gap-3 transition-opacity duration-300 opacity-0 group-hover:opacity-100 hover:opacity-100">
           
           <!-- Bottom Controls Row -->
-          <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center justify-between gap-2 sm:gap-4 flex-wrap">
             
             <!-- Left Side Controls (Play, Volume, Live Badge) -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 md:gap-4">
               <!-- Play / Pause -->
-              <button id="play-pause-btn" class="p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Play or Pause">
-                <i data-lucide="play" class="w-5 h-5 fill-current" id="play-icon"></i>
+              <button id="play-pause-btn" class="p-1.5 sm:p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Play or Pause">
+                <i data-lucide="play" class="w-4 h-4 sm:w-5 sm:h-5 fill-current" id="play-icon"></i>
               </button>
 
               <!-- Refresh/Reload -->
-              <button id="reload-stream-btn" class="p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-400 hover:text-white transition cursor-pointer" aria-label="Reload Stream">
-                <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+              <button id="reload-stream-btn" class="p-1.5 sm:p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-400 hover:text-white transition cursor-pointer hidden sm:block" aria-label="Reload Stream">
+                <i data-lucide="refresh-cw" class="w-4 h-4 sm:w-5 sm:h-5"></i>
               </button>
 
               <!-- Live Indicator / Playback Speed Indicator -->
-              <div class="flex items-center gap-2 px-2.5 py-1 rounded bg-red-950/40 border border-red-500/20 text-[10px] font-bold tracking-wider text-red-500">
+              <div class="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-2.5 py-1 rounded bg-red-950/40 border border-red-500/20 text-[9px] sm:text-[10px] font-bold tracking-wider text-red-500">
                 <span class="h-1.5 w-1.5 rounded-full bg-red-500 animate-pulse"></span>
                 LIVE
               </div>
 
               <!-- Bandwidth Saved Indicator in Controls -->
-              <div id="badge-low-speed-active" class="hidden items-center gap-1 px-2.5 py-1 rounded bg-amber-950/40 border border-amber-500/20 text-[10px] font-bold tracking-wider text-amber-500">
-                <i data-lucide="zap" class="w-3 h-3 text-amber-500"></i>
+              <div id="badge-low-speed-active" class="hidden items-center gap-1 px-2 sm:px-2.5 py-1 rounded bg-amber-950/40 border border-amber-500/20 text-[9px] sm:text-[10px] font-bold tracking-wider text-amber-500">
+                <i data-lucide="zap" class="w-2.5 h-2.5 sm:w-3 sm:h-3 text-amber-500"></i>
                 LOW BW
               </div>
             </div>
 
             <!-- Right Side Controls (Quality, Pip, Volume, Fullscreen) -->
-            <div class="flex items-center gap-4">
+            <div class="flex items-center gap-2 sm:gap-3 md:gap-4">
               
-              <!-- Quality Control Selector -->
-              <div class="relative" id="quality-selector-container">
-                <button id="quality-btn" class="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 hover:text-white text-xs text-zinc-300 transition cursor-pointer">
-                  <i data-lucide="sliders" class="w-3.5 h-3.5"></i>
-                  <span id="quality-label">Quality: Auto</span>
+              <!-- Quality Control Selector (Hidden on small mobile) -->
+              <div class="relative hidden sm:block" id="quality-selector-container">
+                <button id="quality-btn" class="flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg border border-zinc-800 bg-zinc-900/60 hover:bg-zinc-800 hover:text-white text-xs text-zinc-300 transition duration-200 cursor-pointer">
+                  <i data-lucide="sliders" class="w-3 h-3 sm:w-3.5 sm:h-3.5"></i>
+                  <span id="quality-label" class="hidden md:inline">Quality</span>
                 </button>
                 <!-- Quality Menu Dropdown -->
                 <div id="quality-dropdown" class="absolute bottom-11 right-0 hidden w-40 glass-panel rounded-xl shadow-xl overflow-hidden border border-zinc-800/80 py-1.5 flex flex-col z-30">
@@ -161,21 +161,21 @@
               </div>
 
               <!-- Volume Control (Mute Toggle + Slider) -->
-              <div class="flex items-center gap-2 group/volume">
-                <button id="mute-btn" class="p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Mute or Unmute">
-                  <i data-lucide="volume-2" class="w-5 h-5" id="volume-icon"></i>
+              <div class="flex items-center gap-1.5 sm:gap-2 group/volume hidden sm:flex">
+                <button id="mute-btn" class="p-1.5 sm:p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Mute or Unmute">
+                  <i data-lucide="volume-2" class="w-4 h-4 sm:w-5 sm:h-5" id="volume-icon"></i>
                 </button>
-                <input type="range" id="volume-slider" min="0" max="100" value="50" class="slider-input volume-range-fill w-0 group-hover/volume:w-20 transition-all duration-300 focus:w-20" aria-label="Volume Slider">
+                <input type="range" id="volume-slider" min="0" max="100" value="50" class="slider-input volume-range-fill w-0 group-hover/volume:w-16 sm:group-hover/volume:w-20 transition-all duration-300 focus:w-16 sm:focus:w-20" aria-label="Volume">
               </div>
 
-              <!-- Picture-in-Picture -->
-              <button id="pip-btn" class="p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Picture in Picture">
-                <i data-lucide="picture-in-picture" class="w-5 h-5"></i>
+              <!-- Picture-in-Picture (Hidden on mobile) -->
+              <button id="pip-btn" class="p-1.5 sm:p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer hidden md:block" aria-label="Picture in Picture">
+                <i data-lucide="picture-in-picture" class="w-4 h-4 sm:w-5 sm:h-5"></i>
               </button>
 
               <!-- Fullscreen -->
-              <button id="fullscreen-btn" class="p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Toggle Fullscreen">
-                <i data-lucide="maximize" class="w-5 h-5" id="fullscreen-icon"></i>
+              <button id="fullscreen-btn" class="p-1.5 sm:p-2 rounded-lg hover:bg-zinc-800/80 text-zinc-300 hover:text-white transition cursor-pointer" aria-label="Toggle Fullscreen">
+                <i data-lucide="maximize" class="w-4 h-4 sm:w-5 sm:h-5" id="fullscreen-icon"></i>
               </button>
             </div>
 
@@ -185,93 +185,93 @@
       </div>
 
       <!-- Current Channel Details Info Card -->
-      <div class="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 p-5 rounded-2xl glass-panel border border-zinc-800/80 shadow-lg">
-        <div class="flex items-center gap-4">
-          <div class="h-16 w-16 rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 overflow-hidden shadow-inner shrink-0">
-            <img id="active-channel-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233f3f46'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'/%3E%3C/svg%3E" alt="Channel Logo" class="h-full w-full object-contain">
+      <div class="mt-3 sm:mt-4 md:mt-6 flex flex-col gap-3 sm:gap-4 p-3 sm:p-4 md:p-5 rounded-lg sm:rounded-2xl glass-panel border border-zinc-800/80 shadow-lg">
+        <div class="flex items-center gap-3 sm:gap-4">
+          <div class="h-12 w-12 sm:h-16 sm:w-16 rounded-lg sm:rounded-xl bg-zinc-900 border border-zinc-800 flex items-center justify-center p-2 overflow-hidden shadow-inner shrink-0">
+            <img id="active-channel-logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233f3f46'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3E%3C/path%3E%3C/svg%3E" alt="Channel Logo" class="w-full h-full object-contain">
           </div>
-          <div>
-            <h2 id="active-channel-name" class="text-xl font-bold text-white tracking-wide">No Channel Selected</h2>
-            <div class="flex items-center gap-2 mt-1">
-              <span id="active-channel-category" class="text-xs px-2.5 py-0.5 rounded-full bg-zinc-800/80 text-zinc-400 font-semibold border border-zinc-700/40">Select channel to play</span>
-              <span id="active-channel-source" class="text-[10px] text-zinc-500 font-medium font-mono hidden md:inline"></span>
+          <div class="flex-1 min-w-0">
+            <h2 id="active-channel-name" class="text-base sm:text-lg md:text-xl font-bold text-white tracking-wide truncate">No Channel Selected</h2>
+            <div class="flex items-center gap-1.5 sm:gap-2 mt-1 flex-wrap">
+              <span id="active-channel-category" class="text-xs px-2 sm:px-2.5 py-0.5 rounded-full bg-zinc-800/80 text-zinc-400 font-semibold border border-zinc-700/40 truncate">Select channel</span>
+              <span id="active-channel-source" class="text-[9px] sm:text-[10px] text-zinc-500 font-medium font-mono hidden md:inline truncate"></span>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center gap-2 self-stretch sm:self-auto border-t sm:border-t-0 pt-3 sm:pt-0 border-zinc-800">
+        <div class="flex items-center justify-between gap-2 border-t border-zinc-800 pt-3 sm:pt-3 md:pt-4">
           <div class="flex flex-col text-right">
-            <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Adaptive Quality</span>
-            <span id="current-stream-status" class="text-xs text-zinc-300 font-medium">Idle</span>
+            <span class="text-[9px] sm:text-[10px] text-zinc-500 uppercase tracking-widest font-semibold">Status</span>
+            <span id="current-stream-status" class="text-xs sm:text-sm text-zinc-300 font-medium">Idle</span>
           </div>
         </div>
       </div>
 
       <!-- Quick Tips Box -->
-      <div class="mt-4 p-4 rounded-xl bg-cyan-950/20 border border-cyan-500/10 text-xs text-cyan-400/80 flex items-start gap-2.5">
+      <div class="mt-3 sm:mt-4 p-3 sm:p-4 rounded-lg sm:rounded-xl bg-cyan-950/20 border border-cyan-500/10 text-xs text-cyan-400/80 flex items-start gap-2 md:gap-2.5">
         <i data-lucide="info" class="w-4 h-4 shrink-0 mt-0.5"></i>
-        <div>
-          <strong class="text-cyan-300 font-bold block mb-0.5">Low-Bandwidth Mode is active!</strong>
-          Low-Bandwidth Mode caps the player resolution to the lowest available stream and optimizes buffer loading settings. You can toggle this setting in the top navbar or the settings panel.
+        <div class="min-w-0">
+          <strong class="text-cyan-300 font-bold block mb-1">Low-Bandwidth Mode is active!</strong>
+          <p class="text-[11px] sm:text-xs leading-relaxed">Caps resolution to lowest stream and optimizes buffer settings for slower networks. Toggle in settings.</p>
         </div>
       </div>
     </section>
 
-    <!-- RIGHT PANEL: Channels & Explorer (35% width, sticky scroll sidebar) -->
-    <section class="w-full flex-1 md:flex-none md:w-[380px] lg:w-[420px] border-t md:border-t-0 md:border-l border-zinc-900 bg-zinc-950/60 flex flex-col overflow-hidden">
+    <!-- RIGHT PANEL: Channels & Explorer -->
+    <section class="w-full lg:flex-none lg:w-[380px] xl:w-[420px] border-t lg:border-t-0 lg:border-l border-zinc-900 bg-zinc-950/60 flex flex-col overflow-hidden">
       
       <!-- Explorer Header with Search and Categories -->
-      <div class="p-4 lg:p-5 border-b border-zinc-900 flex flex-col gap-4">
+      <div class="p-3 sm:p-4 lg:p-5 border-b border-zinc-900 flex flex-col gap-3 sm:gap-4">
         <!-- Search bar -->
         <div class="relative flex items-center">
-          <span class="absolute left-3.5 text-zinc-500">
+          <span class="absolute left-3 sm:left-3.5 text-zinc-500">
             <i data-lucide="search" class="w-4 h-4"></i>
           </span>
-          <input type="text" id="channel-search" placeholder="Search by channel name..." class="w-full pl-10 pr-10 py-2.5 rounded-xl bg-zinc-900 border border-zinc-800/80 text-sm placeholder-zinc-500 text-zinc-100 focus:outline-none focus:border-cyan-500 focus:ring-1 focus:ring-cyan-500/25 transition-all">
-          <button id="clear-search-btn" class="absolute right-3.5 text-zinc-500 hover:text-zinc-300 hidden cursor-pointer">
+          <input type="text" id="channel-search" placeholder="Search channels..." class="w-full pl-9 sm:pl-10 pr-9 sm:pr-10 py-2 sm:py-2.5 rounded-lg sm:rounded-xl bg-zinc-900 border border-zinc-800/80 text-xs sm:text-sm placeholder-zinc-500 text-white outline-none focus:border-cyan-500/50 focus:ring-1 focus:ring-cyan-500/20 transition-all">
+          <button id="clear-search-btn" class="absolute right-3 sm:right-3.5 text-zinc-500 hover:text-zinc-300 hidden cursor-pointer">
             <i data-lucide="x" class="w-4 h-4"></i>
           </button>
         </div>
 
         <!-- Horizontal scrollable category pill-menu -->
         <div class="flex flex-col gap-2">
-          <span class="text-[10px] text-zinc-500 uppercase tracking-widest font-semibold px-1">Categories</span>
+          <span class="text-[9px] sm:text-[10px] text-zinc-500 uppercase tracking-widest font-semibold px-1">Categories</span>
           <div id="category-pills" class="flex gap-2 overflow-x-auto pb-2 snap-x snap-mandatory scroll-smooth">
-            <button class="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-cyan-400 text-zinc-950 cursor-pointer snap-start shrink-0 active-pill">All Channels</button>
+            <button class="px-3 sm:px-3.5 py-1.5 rounded-full text-xs font-semibold bg-cyan-400 text-zinc-950 cursor-pointer snap-start shrink-0 active-pill whitespace-nowrap">All Channels</button>
             <!-- Dynamic Category Pills Injected here -->
           </div>
         </div>
       </div>
 
       <!-- Channels List (Scrollable grid/list) -->
-      <div id="channels-container" class="flex-1 overflow-y-auto p-4 lg:p-5 flex flex-col gap-2.5">
+      <div id="channels-container" class="flex-1 overflow-y-auto p-3 sm:p-4 lg:p-5 flex flex-col gap-2">
         <!-- Skeletal Loading Cards -->
-        <div class="skeleton-card flex items-center gap-3 p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/10">
+        <div class="skeleton-card flex items-center gap-3 p-2.5 sm:p-3.5 rounded-lg sm:rounded-xl border border-zinc-800 bg-zinc-900/10">
           <div class="skeleton h-10 w-10 rounded-lg shrink-0"></div>
           <div class="flex-1 flex flex-col gap-1.5">
-            <div class="skeleton h-4 w-2/3 rounded"></div>
-            <div class="skeleton h-3 w-1/3 rounded"></div>
+            <div class="skeleton h-3 w-2/3 rounded"></div>
+            <div class="skeleton h-2.5 w-1/3 rounded"></div>
           </div>
         </div>
-        <div class="skeleton-card flex items-center gap-3 p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/10">
+        <div class="skeleton-card flex items-center gap-3 p-2.5 sm:p-3.5 rounded-lg sm:rounded-xl border border-zinc-800 bg-zinc-900/10">
           <div class="skeleton h-10 w-10 rounded-lg shrink-0"></div>
           <div class="flex-1 flex flex-col gap-1.5">
-            <div class="skeleton h-4 w-1/2 rounded"></div>
-            <div class="skeleton h-3 w-1/4 rounded"></div>
+            <div class="skeleton h-3 w-1/2 rounded"></div>
+            <div class="skeleton h-2.5 w-1/4 rounded"></div>
           </div>
         </div>
-        <div class="skeleton-card flex items-center gap-3 p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/10">
+        <div class="skeleton-card flex items-center gap-3 p-2.5 sm:p-3.5 rounded-lg sm:rounded-xl border border-zinc-800 bg-zinc-900/10">
           <div class="skeleton h-10 w-10 rounded-lg shrink-0"></div>
           <div class="flex-1 flex flex-col gap-1.5">
-            <div class="skeleton h-4 w-3/4 rounded"></div>
-            <div class="skeleton h-3 w-1/3 rounded"></div>
+            <div class="skeleton h-3 w-3/4 rounded"></div>
+            <div class="skeleton h-2.5 w-1/3 rounded"></div>
           </div>
         </div>
-        <div class="skeleton-card flex items-center gap-3 p-3.5 rounded-xl border border-zinc-800 bg-zinc-900/10">
+        <div class="skeleton-card flex items-center gap-3 p-2.5 sm:p-3.5 rounded-lg sm:rounded-xl border border-zinc-800 bg-zinc-900/10">
           <div class="skeleton h-10 w-10 rounded-lg shrink-0"></div>
           <div class="flex-1 flex flex-col gap-1.5">
-            <div class="skeleton h-4 w-2/5 rounded"></div>
-            <div class="skeleton h-3 w-1/5 rounded"></div>
+            <div class="skeleton h-3 w-2/5 rounded"></div>
+            <div class="skeleton h-2.5 w-1/5 rounded"></div>
           </div>
         </div>
       </div>
@@ -279,47 +279,47 @@
   </main>
 
   <!-- Premium Settings Modal -->
-  <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0">
-    <div class="w-full max-w-md glass-panel rounded-2xl border border-zinc-800 shadow-2xl p-6 flex flex-col gap-5 transform scale-95 transition-transform duration-300">
+  <div id="settings-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-zinc-950/80 backdrop-blur-md hidden transition-opacity duration-300 opacity-0 p-4">
+    <div class="w-full max-w-md glass-panel rounded-2xl border border-zinc-800 shadow-2xl p-4 sm:p-6 flex flex-col gap-4 sm:gap-5 transform scale-95 transition-transform duration-300 max-h-[90vh] overflow-y-auto">
       
       <!-- Header -->
-      <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3">
-        <div class="flex items-center gap-2">
-          <i data-lucide="settings" class="w-5 h-5 text-cyan-400"></i>
-          <h3 class="text-lg font-bold text-white tracking-wide">Application Settings</h3>
+      <div class="flex items-center justify-between border-b border-zinc-800/80 pb-3 gap-2">
+        <div class="flex items-center gap-2 min-w-0">
+          <i data-lucide="settings" class="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400 shrink-0"></i>
+          <h3 class="text-base sm:text-lg font-bold text-white tracking-wide truncate">Settings</h3>
         </div>
-        <button id="settings-close-btn" class="p-1 rounded-lg hover:bg-zinc-850 hover:text-white text-zinc-400 transition cursor-pointer">
+        <button id="settings-close-btn" class="p-1 rounded-lg hover:bg-zinc-850 hover:text-white text-zinc-400 transition cursor-pointer shrink-0">
           <i data-lucide="x" class="w-5 h-5"></i>
         </button>
       </div>
 
       <!-- Settings Content -->
-      <div class="flex flex-col gap-5 text-sm">
+      <div class="flex flex-col gap-3 sm:gap-5 text-sm">
         
         <!-- Toggle: Low Bandwidth -->
-        <div class="flex items-center justify-between p-3.5 rounded-xl bg-zinc-900 border border-zinc-800">
-          <div class="flex flex-col gap-0.5 max-w-[75%]">
-            <span class="font-bold text-white flex items-center gap-1.5">
-              <i data-lucide="zap" class="w-4 h-4 text-amber-500"></i>
+        <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-lg sm:rounded-xl bg-zinc-900 border border-zinc-800 gap-3">
+          <div class="flex flex-col gap-1 flex-1">
+            <span class="font-bold text-white flex items-center gap-1.5 text-sm sm:text-base">
+              <i data-lucide="zap" class="w-4 h-4 text-amber-500 shrink-0"></i>
               Low Bandwidth Mode
             </span>
-            <span class="text-xs text-zinc-400">Forces initial streams to lowest video bitrate/quality and optimizes buffer settings for slow networks.</span>
+            <span class="text-xs text-zinc-400 leading-relaxed">Forces streams to lowest bitrate and optimizes buffer settings.</span>
           </div>
-          <button id="modal-bandwidth-toggle" class="w-11 h-6 rounded-full bg-zinc-700 relative p-0.5 cursor-pointer transition-colors duration-300">
+          <button id="modal-bandwidth-toggle" class="w-11 h-6 rounded-full bg-zinc-700 relative p-0.5 cursor-pointer transition-colors duration-300 shrink-0">
             <span class="absolute block w-5 h-5 rounded-full bg-white left-0.5 top-0.5 shadow transition-transform duration-300 transform" id="modal-bandwidth-knob"></span>
           </button>
         </div>
 
         <!-- Toggle: CORS Proxy fallback -->
-        <div class="flex items-center justify-between p-3.5 rounded-xl bg-zinc-900 border border-zinc-800">
-          <div class="flex flex-col gap-0.5 max-w-[75%]">
-            <span class="font-bold text-white flex items-center gap-1.5">
-              <i data-lucide="shield" class="w-4 h-4 text-cyan-400"></i>
+        <div class="flex items-center justify-between p-3 sm:p-3.5 rounded-lg sm:rounded-xl bg-zinc-900 border border-zinc-800 gap-3">
+          <div class="flex flex-col gap-1 flex-1">
+            <span class="font-bold text-white flex items-center gap-1.5 text-sm sm:text-base">
+              <i data-lucide="shield" class="w-4 h-4 text-cyan-400 shrink-0"></i>
               CORS Bypass Proxy
             </span>
-            <span class="text-xs text-zinc-400">Bypasses strict browser CORS restrictions by routing stream requests through a proxy. Useful if video fails to load.</span>
+            <span class="text-xs text-zinc-400 leading-relaxed">Routes requests through a proxy to bypass CORS restrictions.</span>
           </div>
-          <button id="modal-proxy-toggle" class="w-11 h-6 rounded-full bg-zinc-700 relative p-0.5 cursor-pointer transition-colors duration-300">
+          <button id="modal-proxy-toggle" class="w-11 h-6 rounded-full bg-zinc-700 relative p-0.5 cursor-pointer transition-colors duration-300 shrink-0">
             <span class="absolute block w-5 h-5 rounded-full bg-white left-0.5 top-0.5 shadow transition-transform duration-300 transform" id="modal-proxy-knob"></span>
           </button>
         </div>
@@ -327,22 +327,22 @@
         <!-- Details / Playlist sources summary -->
         <div class="flex flex-col gap-2">
           <span class="text-xs font-bold text-zinc-400 uppercase tracking-widest">Playlist Sources</span>
-          <div class="flex flex-col gap-1.5 text-xs text-zinc-500 font-mono">
-            <div class="flex items-center justify-between border-b border-zinc-900 pb-1">
-              <span class="truncate pr-4">lupael.github.io (running.m3u)</span>
-              <span id="source-status-0" class="text-amber-500 font-semibold uppercase">Pending</span>
+          <div class="flex flex-col gap-1.5 text-xs text-zinc-500 font-mono overflow-hidden">
+            <div class="flex items-center justify-between border-b border-zinc-900 pb-1 gap-2">
+              <span class="truncate pr-2 text-[11px] sm:text-xs">lupael.github.io (running.m3u)</span>
+              <span id="source-status-0" class="text-amber-500 font-semibold uppercase text-[9px] sm:text-[10px] shrink-0">Pending</span>
             </div>
-            <div class="flex items-center justify-between border-b border-zinc-900 pb-1">
-              <span class="truncate pr-4">abusaeeidx/Mrgify-BDIX-IPTV</span>
-              <span id="source-status-1" class="text-amber-500 font-semibold uppercase">Pending</span>
+            <div class="flex items-center justify-between border-b border-zinc-900 pb-1 gap-2">
+              <span class="truncate pr-2 text-[11px] sm:text-xs">abusaeeidx/Mrgify-BDIX</span>
+              <span id="source-status-1" class="text-amber-500 font-semibold uppercase text-[9px] sm:text-[10px] shrink-0">Pending</span>
             </div>
-            <div class="flex items-center justify-between border-b border-zinc-900 pb-1">
-              <span class="truncate pr-4">imShakil/tvlink (iptv.m3u8)</span>
-              <span id="source-status-2" class="text-amber-500 font-semibold uppercase">Pending</span>
+            <div class="flex items-center justify-between border-b border-zinc-900 pb-1 gap-2">
+              <span class="truncate pr-2 text-[11px] sm:text-xs">imShakil/tvlink (iptv.m3u8)</span>
+              <span id="source-status-2" class="text-amber-500 font-semibold uppercase text-[9px] sm:text-[10px] shrink-0">Pending</span>
             </div>
-            <div class="flex items-center justify-between">
-              <span class="truncate pr-4">Custom Playlist (local_playlist.m3u)</span>
-              <span id="source-status-3" class="text-amber-500 font-semibold uppercase">Pending</span>
+            <div class="flex items-center justify-between gap-2">
+              <span class="truncate pr-2 text-[11px] sm:text-xs">Custom Playlist (local)</span>
+              <span id="source-status-3" class="text-amber-500 font-semibold uppercase text-[9px] sm:text-[10px] shrink-0">Pending</span>
             </div>
           </div>
         </div>
@@ -350,7 +350,7 @@
       </div>
 
       <!-- Action Button -->
-      <button id="settings-save-btn" class="w-full py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold transition duration-200 cursor-pointer shadow-lg shadow-cyan-500/10">
+      <button id="settings-save-btn" class="w-full py-2.5 rounded-lg sm:rounded-xl bg-cyan-500 hover:bg-cyan-400 text-zinc-950 font-bold transition duration-200 cursor-pointer shadow-lg shadow-cyan-500/10 text-sm sm:text-base">
         Apply Settings
       </button>
 
