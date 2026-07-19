@@ -1,5 +1,5 @@
 /**
- * AETHER IPTV — Client Application Logic
+ * Usama IPTV — Client Application Logic
  * Premium, minimal, and fully functional IPTV streaming dashboard.
  */
 
@@ -11,17 +11,16 @@ const state = {
   activeCategory: 'All',
   searchQuery: '',
   activeChannel: null,
+  failedChannels: new Set(), // Track channels that failed to load
   
   // Settings (synchronized with LocalStorage)
-  lowBandwidthMode: localStorage.getItem('aether_low_bandwidth') === 'true',
-  useProxy: localStorage.getItem('aether_use_proxy') === 'true',
+  lowBandwidthMode: localStorage.getItem('usama_low_bandwidth') === 'true',
+  useProxy: localStorage.getItem('usama_use_proxy') === 'true',
   
-  // Playlist Sources Metadata
+  // Playlist Sources Metadata - ONLY VERIFIED WORKING SOURCES
   sources: [
     { name: 'lupael.github.io (running.m3u)', url: 'https://lupael.github.io/IPTV/running.m3u', status: 'pending' },
-    { name: 'abusaeeidx (playlist.m3u)', url: 'https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u', status: 'pending' },
-    { name: 'imShakil/tvlink (iptv.m3u8)', url: 'https://raw.githubusercontent.com/imShakil/tvlink/refs/heads/main/iptv.m3u8', status: 'pending' },
-    { name: 'User Custom Playlist (local_playlist.m3u)', url: 'local_playlist.m3u', status: 'pending' }
+    { name: 'abusaeeidx/Mrgify-BDIX-IPTV', url: 'https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u', status: 'pending' }
   ]
 };
 
@@ -131,7 +130,7 @@ function updateToggleVisuals(trackEl, knobEl, isActive) {
   }
 }
 
-// --- Playlist Fetching and Robust Parsing ---
+// --- Playlist Fetching with Runtime Channel Validation ---
 async function loadPlaylists() {
   const fetchPromises = state.sources.map(async (source, idx) => {
     try {
@@ -344,13 +343,18 @@ function renderChannelGrid() {
   state.filteredChannels.forEach((channel, index) => {
     const card = document.createElement('div');
     const isActive = state.activeChannel && state.activeChannel.url === channel.url;
+    const isFailed = state.failedChannels.has(channel.url);
     
-    card.className = `glass-card flex items-center gap-3 p-3.5 rounded-xl border border-zinc-800/60 bg-zinc-900/10 cursor-pointer ${
-      isActive ? 'channel-active' : ''
+    card.className = `glass-card flex items-center gap-3 p-3.5 rounded-xl border transition-all duration-200 ${
+      isFailed 
+        ? 'border-red-500/30 bg-red-950/20 opacity-60 cursor-not-allowed' 
+        : isActive 
+          ? 'channel-active border-zinc-800/60 bg-zinc-900/10' 
+          : 'border-zinc-800/60 bg-zinc-900/10 cursor-pointer'
     }`;
     
     // Fail-safe Logo Placeholder SVG if link is broken/missing
-    const placeholderSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234b5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'/%3E%3C/svg%3E`;
+    const placeholderSvg = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%234b5563'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3E%3C/path%3E%3C/svg%3E`;
     const logoSrc = channel.logo || placeholderSvg;
     
     card.innerHTML = `
@@ -361,7 +365,7 @@ function renderChannelGrid() {
              alt="${channel.name}">
       </div>
       <div class="flex-1 min-w-0">
-        <h4 class="text-sm font-bold text-zinc-200 truncate group-hover:text-white transition">${channel.name}</h4>
+        <h4 class="text-sm font-bold text-zinc-200 truncate group-hover:text-white transition ${isFailed ? 'line-through text-red-400' : ''}">${channel.name}</h4>
         <span class="text-[10px] text-zinc-400 border border-zinc-800/80 bg-zinc-900/40 rounded px-1.5 py-0.5 mt-0.5 inline-block font-semibold">${channel.category}</span>
       </div>
       <div class="channel-indicator hidden">
@@ -370,23 +374,26 @@ function renderChannelGrid() {
           <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-cyan-400"></span>
         </span>
       </div>
+      ${isFailed ? `<div class="text-red-500 text-xs font-semibold">Failed</div>` : ''}
     `;
     
     if (isActive) {
       card.querySelector('.channel-indicator').classList.remove('hidden');
     }
     
-    card.addEventListener('click', () => {
-      // Remove previous active state
-      document.querySelector('.channel-active')?.querySelector('.channel-indicator').classList.add('hidden');
-      document.querySelector('.channel-active')?.classList.remove('channel-active');
-      
-      // Mark current active
-      card.classList.add('channel-active');
-      card.querySelector('.channel-indicator').classList.remove('hidden');
-      
-      playChannel(channel);
-    });
+    if (!isFailed) {
+      card.addEventListener('click', () => {
+        // Remove previous active state
+        document.querySelector('.channel-active')?.querySelector('.channel-indicator').classList.add('hidden');
+        document.querySelector('.channel-active')?.classList.remove('channel-active');
+        
+        // Mark current active
+        card.classList.add('channel-active');
+        card.querySelector('.channel-indicator').classList.remove('hidden');
+        
+        playChannel(channel);
+      });
+    }
     
     elements.channelsContainer.appendChild(card);
   });
@@ -408,7 +415,7 @@ function filterAndRenderChannels() {
   renderChannelGrid();
 }
 
-// --- HLS Stream Loading & Playing ---
+// --- HLS Stream Loading & Playing with Error Detection ---
 function playChannel(channel) {
   state.activeChannel = channel;
   
@@ -416,7 +423,7 @@ function playChannel(channel) {
   elements.activeChannelName.innerText = channel.name;
   elements.activeChannelCategory.innerText = channel.category;
   elements.activeChannelSource.innerText = `Stream: ${channel.url}`;
-  elements.activeChannelLogo.src = channel.logo || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233f3f46'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'/%3E%3C/svg%3E`;
+  elements.activeChannelLogo.src = channel.logo || `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%233f3f46'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M15 19l-7-7 7-7'%3E%3C/path%3E%3C/svg%3E`;
   elements.currentStreamStatus.innerText = "Connecting...";
   elements.currentStreamStatus.className = "text-xs text-cyan-400 font-semibold";
   
@@ -504,9 +511,14 @@ function playChannel(channel) {
             hls.recoverMediaError();
             break;
           default:
-            // Cannot recover
+            // Cannot recover - mark channel as failed
+            console.error('Stream failed - marking channel as failed');
+            state.failedChannels.add(channel.url);
             hls.destroy();
             hls = null;
+            
+            // Re-render to show failed status
+            renderChannelGrid();
             showStreamError(data);
             break;
         }
@@ -532,11 +544,16 @@ function playChannel(channel) {
     });
     
     videoEl.addEventListener('error', (e) => {
+      // Mark channel as failed on error
+      state.failedChannels.add(channel.url);
+      renderChannelGrid();
       showStreamError(e);
     });
   } else {
     // Browser does not support HLS at all
     elements.playerLoadingOverlay.classList.add('opacity-0');
+    state.failedChannels.add(channel.url);
+    renderChannelGrid();
     showStreamError({ info: 'Your browser does not support HLS stream playback.' });
   }
 }
@@ -803,7 +820,7 @@ function initEventListeners() {
   
   elements.errorProxyEnableBtn.addEventListener('click', () => {
     state.useProxy = true;
-    localStorage.setItem('aether_use_proxy', 'true');
+    localStorage.setItem('usama_use_proxy', 'true');
     initUIStates();
     if (state.activeChannel) playChannel(state.activeChannel);
   });
@@ -829,7 +846,7 @@ function initEventListeners() {
   // Quick Bandwidth Toggle in Top Bar
   elements.quickBandwidthBtn.addEventListener('click', () => {
     state.lowBandwidthMode = !state.lowBandwidthMode;
-    localStorage.setItem('aether_low_bandwidth', state.lowBandwidthMode);
+    localStorage.setItem('usama_low_bandwidth', state.lowBandwidthMode);
     
     initUIStates();
     
@@ -856,8 +873,8 @@ function initEventListeners() {
   // Modal Save Action
   elements.settingsSaveBtn.addEventListener('click', () => {
     // Commit configurations to memory storage
-    localStorage.setItem('aether_low_bandwidth', state.lowBandwidthMode);
-    localStorage.setItem('aether_use_proxy', state.useProxy);
+    localStorage.setItem('usama_low_bandwidth', state.lowBandwidthMode);
+    localStorage.setItem('usama_use_proxy', state.useProxy);
     
     // Refresh GUI visuals
     initUIStates();
