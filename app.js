@@ -284,7 +284,16 @@ function deduplicateChannels(channels) {
 
 // --- Render Categories & Pills ---
 function renderCategoryPills() {
-  const categoriesList = ["All", ...Array.from(state.categories).sort()];
+  const sortedCategories = Array.from(state.categories).sort();
+  const categoriesList = ["All"];
+  if (sortedCategories.includes("Sports")) {
+    categoriesList.push("Sports");
+  }
+  sortedCategories.forEach(cat => {
+    if (cat !== "Sports") {
+      categoriesList.push(cat);
+    }
+  });
   
   elements.categoryPills.innerHTML = '';
   
