@@ -342,7 +342,7 @@ function renderChannelGrid() {
     return;
   }
   
-  state.filteredChannels.forEach((channel, index) => {
+  state.filteredChannels.slice(0, 100).forEach((channel, index) => {
     const card = document.createElement('div');
     const isActive = state.activeChannel && state.activeChannel.url === channel.url;
     const isFailed = state.failedChannels.has(channel.url);
