@@ -216,11 +216,11 @@ function parseM3U(text) {
       const name = currentInfo.name.trim();
       const url = currentInfo.url.trim().toLowerCase();
       
-      // Filter out DRM/Kodi configs and MPEG-DASH streams (Hls.js doesn't play .mpd)
-      if (name.startsWith('#') || 
-          name.includes('KODIPROP') || 
-          url.includes('.mpd') || 
-          url.includes('/dash/')) {
+      // Filter out unplayable formats (raw .ts files, DASH .mpd files, Kodi config statements)
+      const isPlayableHLS = url.includes('.m3u8') || url.includes('.m3u') || url.includes('master') || url.includes('manifest') || url.includes('playlist');
+      const isUnplayable = url.includes('.ts') || url.includes('.mpd') || url.includes('/dash/') || name.startsWith('#') || name.includes('KODIPROP');
+      
+      if (isUnplayable || !isPlayableHLS) {
         currentInfo = null;
         continue;
       }
