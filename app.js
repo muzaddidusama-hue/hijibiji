@@ -17,10 +17,12 @@ const state = {
   lowBandwidthMode: localStorage.getItem('usama_low_bandwidth') === 'true',
   useProxy: localStorage.getItem('usama_use_proxy') === 'true',
   
-  // Playlist Sources Metadata - ONLY VERIFIED WORKING SOURCES
+  // Playlist Sources Metadata - VERIFIED WORKING SOURCES
   sources: [
     { name: 'lupael.github.io (running.m3u)', url: 'https://lupael.github.io/IPTV/running.m3u', status: 'pending' },
-    { name: 'abusaeeidx/Mrgify-BDIX-IPTV', url: 'https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u', status: 'pending' }
+    { name: 'abusaeeidx/Mrgify-BDIX-IPTV', url: 'https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u', status: 'pending' },
+    { name: 'iptv-org/Sports (sports.m3u)', url: 'https://iptv-org.github.io/iptv/categories/sports.m3u', status: 'pending' },
+    { name: 'cloudy44-a/IPTV Channels', url: 'https://gist.githubusercontent.com/cloudy44-a/5739c14bceb83d1c2cdded28ecfdffd1/raw/channels.m3u', status: 'pending' }
   ]
 };
 
