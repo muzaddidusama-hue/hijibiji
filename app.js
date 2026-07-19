@@ -23,7 +23,6 @@ const state = {
     { name: 'abusaeeidx/Mrgify-BDIX-IPTV', url: 'https://github.com/abusaeeidx/Mrgify-BDIX-IPTV/raw/main/playlist.m3u', status: 'pending' },
     { name: 'iptv-org/Sports (sports.m3u)', url: 'https://iptv-org.github.io/iptv/categories/sports.m3u', status: 'pending' },
     { name: 'cloudy44-a/IPTV Channels', url: 'https://gist.githubusercontent.com/cloudy44-a/5739c14bceb83d1c2cdded28ecfdffd1/raw/channels.m3u', status: 'pending' }
-    { name: 'Free-TV/IPTV (playlist.m3u8)', url: 'https://raw.githubusercontent.com/Free-TV/IPTV/master/playlist.m3u8', status: 'pending' }
   ]
 };
 
